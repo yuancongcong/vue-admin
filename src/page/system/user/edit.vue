@@ -31,7 +31,7 @@ export default {
     props: {
         model: {
             type: Object,
-            default: () => {
+            default() {
                 return {
                     id: '',
                     name: '',
