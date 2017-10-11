@@ -1,16 +1,14 @@
-const user = r => require.ensure([], () => r(require('../page/system/user')), 'system')
-
-// 配置路由
+// 系统配置
 export default [{
     path: '',
-    redirect:'user'
+    redirect: 'user'
   },
   {
     path: 'user',
-    component: user,
+    component: r => require(['../page/system/user'], r),
   },
   {
     path: 'org',
-    component: user,
+    component: r => require(['../page/system/user'], r),
   }
 ]

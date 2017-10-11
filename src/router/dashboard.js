@@ -1,22 +1,13 @@
-const info = r => require.ensure([], () => r(require('../page/dashboard/info')), 'dashboard')
-const changePassword = r => require.ensure([], () => r(require('../page/dashboard/changePassword')), 'dashboard')
-
-// 配置路由
+// 我的面板
 export default [{
     path: '',
-    redirect:'info'
-  },{
+    redirect: 'info'
+  }, {
     path: 'info',
-    meta: {
-      nav: '个人信息',
-    },
-    component: info,
+    component: r => require(['../page/dashboard/info'], r),
   },
   {
     path: 'changePassword',
-    meta: {
-      nav: '修改密码',
-    },
-    component: changePassword,
+    component: r => require(['../page/dashboard/changePassword'], r)
   }
 ]

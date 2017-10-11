@@ -2,17 +2,17 @@
     <el-form ref="form" :model="form" class="c-form" label-width="150px">
         <el-form-item label="头像">
             <el-button type="text">
-                <img src="/static/user.png" />
+                <img :src="user.avatar" />
             </el-button>
         </el-form-item>
         <el-form-item label="归属公司">
-            <el-input v-model="form.test" disabled=""></el-input>
+            <el-input v-model="form.name" disabled=""></el-input>
         </el-form-item>
         <el-form-item label="归属部门">
-            <el-input v-model="form.test" disabled=""></el-input>
+            <el-input v-model="form.name" disabled=""></el-input>
         </el-form-item>
         <el-form-item label="姓名">
-            <el-input v-model="form.rePassword"></el-input>
+            <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
             <el-input v-model="form.rePassword"></el-input>
@@ -36,17 +36,23 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
     data() {
         return {
             form: {
-                test: 'test',
-                oldPassword: '',
-                password: '',
-                rePassword: '',
+                name:'',
             }
         }
+    },
+    computed: {
+        ...mapState([
+            'user'
+        ])
+    },
+    mounted(){
+        this.form = {...this.user};
     },
     methods: {
         onSubmit() {
@@ -56,7 +62,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-img{
+img {
     width: 100px;
     height: 100px;
 }

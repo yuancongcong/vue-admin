@@ -1,11 +1,8 @@
 //vue项目优化之按需加载组件-使用webpack require.ensure
-const login = r => require.ensure([], () => r(require('../page/login')), 'index')
-const index = r => require.ensure([], () => r(require('../page')), 'index')
-const _404 = r => require.ensure([], () => r(require('../page/common/404')), 'index')
-const empty = r => require.ensure([], () => r(require('../page/common/empty')), 'index')
-
-import system from './system'
-import dashboard from './dashboard'
+const login = r => require(['../page/login'], r)
+const index = r => require(['../page'],r) 
+const _404 = r => require(['../page/common/404'], r)
+const empty = r => require(['../page/common/empty'], r)
 
 //子路由
 const children = [{
@@ -16,26 +13,26 @@ const children = [{
   {
     path: 'dashboard',
     component: empty,
-    children: dashboard
+    children: require('./dashboard').default
   },
   {
     path: 'system',
     component: empty,
-    children: system
+    children: require('./system').default
   },
 ]
 
 // 配置路由
 export default [{
   path: '/login',
-  component: login,
-  meta: {
-    requireAuth: false
-  }
+  component: login
 }, {
   path: '/',
   component: index,
   children: children,
+  meta: {
+    requireAuth: true
+  }
 }, {
   path: '*',
   component: _404

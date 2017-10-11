@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import myMenu from 'src/components/menu/menu'
 
 export default {

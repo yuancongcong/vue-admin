@@ -43,7 +43,13 @@
             <el-button type="danger" @click="batchRemove" :disabled="sels.length===0">批量删除</el-button>
             <el-pagination @size-change="pageSize=$event;initData()" @current-change="initData" layout="sizes,prev, pager, next" :current-page.sync="page" :page-size="pageSize" :total="total" class="fr"></el-pagination>
         </el-col>
-        <edit @success="initData" ref="edit"></edit>
+
+        <el-dialog title="添加" v-model="addVisible">
+            <edit @success="handleEditSuccess"></edit>
+        </el-dialog>
+        <el-dialog title="修改" v-model="editVisible">
+            <edit @success="handleEditSuccess" :model="editModel" v-if="editVisible"></edit>
+        </el-dialog>
     </el-row>
 </template>
 
@@ -64,7 +70,9 @@ export default {
             total: 88,
             tableData: [], //表格数据
             sels: [],
-            visible: false,
+            addVisible: false,
+            editVisible: false,
+            editModel: null, //编辑数据
             search: {
                 name: '',
                 addr: [],
@@ -93,9 +101,19 @@ export default {
             this.$refs.search.resetFields();
             this.initData();
         },
-        //修改 or 修改
         handleEdit(row) {
-            this.$refs.edit.open(row);
+            if (row) { //修改
+                let { id, name, sex, birth, addr } = row;
+                this.editModel = { id, name, sex, birth, county: addr.split(' ') };
+                this.editVisible = true;
+            } else {//新增
+                this.addVisible = true;
+            }
+        },
+        handleEditSuccess() {
+            this.addVisible = false;
+            this.editVisible = false;
+            this.initData();
         },
         //删除
         async handleDel(row) {
