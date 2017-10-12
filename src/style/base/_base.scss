@@ -63,6 +63,10 @@ body {
   }
 }
 
+.w-100 {
+  width: 100%;
+}
+
 chrome scrollbar::-webkit-scrollbar {
   width: 8px;
   height: 10px;
@@ -75,29 +79,6 @@ chrome scrollbar::-webkit-scrollbar {
 
 ::-webkit-scrollbar-track-piece {
   background: rgba($c00, 0.2);
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.c-form {
-  margin-top: 3rem;
-  width: 500px;
-}
-
-.el-dialog {
-  width: 500px;
-  .c-form {
-    width: 400px;
-    margin: 0 auto;
-  }
-  .el-cascader {
-    width: 100%;
-  }
-  .el-input {
-    width: 100%;
-  }
 }
 
 .c-search {}

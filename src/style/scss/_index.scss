@@ -1,5 +1,18 @@
-.logo {color: red;}
-.list {
-  line-height: 2;
-  li {border-bottom: 1px solid #ddd;}
+.c-form {
+  margin-top: 3rem;
+  width: 500px;
+}
+
+.el-dialog--small {
+  width: 500px!important;
+  .c-form {
+    width: 400px;
+    margin: 0 auto;
+  }
+  .el-cascader {
+    width: 100%;
+  }
+  .el-input {
+    width: 100%;
+  }
 }

@@ -90,6 +90,9 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../style/scss/index';
+
+
 $color-primary:#20a0ff;
 
 .container {
