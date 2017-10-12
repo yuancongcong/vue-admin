@@ -6,7 +6,7 @@
                 <i class="el-icon-fa-search"></i>
             </template>
         </el-input>
-        <el-tree class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree2"></el-tree>
+        <el-tree class="filter-tree" :data="data" :props="defaultProps" default-expand-all :filter-node-method="filterNode" ref="tree"></el-tree>
     </el-card>
 </template>
 
@@ -15,7 +15,6 @@ import { mapState, mapActions } from 'vuex'
 import { getList } from 'src/service/org'
 
 export default {
-    name: 'my-orgtree',
     data() {
         return {
             filterText: '',
@@ -31,7 +30,7 @@ export default {
     },
     watch: {
         filterText(val) {
-            this.$refs.tree2.filter(val);
+            this.$refs.tree.filter(val);
         }
     },
     methods: {

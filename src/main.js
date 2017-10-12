@@ -26,11 +26,6 @@ const router = new VueRouter({
   routes,
   mode: routerMode
 })
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
 
 //登录拦截
 router.beforeEach((to, from, next) => {
@@ -46,3 +41,9 @@ router.beforeEach((to, from, next) => {
   }
   next() // 确保一定要调用 next()
 })
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')

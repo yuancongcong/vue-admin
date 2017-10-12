@@ -3,7 +3,7 @@
   width: 500px;
 }
 
-.el-dialog--small {
+.el-dialog {
   width: 500px!important;
   .c-form {
     width: 400px;
@@ -14,5 +14,10 @@
   }
   .el-input {
     width: 100%;
+  }
+  .el-date-editor {
+    .el-input {
+      width: 100%;
+    }
   }
 }
