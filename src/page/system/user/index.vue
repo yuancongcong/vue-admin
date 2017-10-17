@@ -1,10 +1,10 @@
 <template>
     <el-row>
         <el-col :span="24" class="toolbar">
-            <el-button type="primary" icon="plus" @click="handleEdit()">新增</el-button>
+            <el-button type="primary" icon="plus" @click="handleAdd">新增</el-button>
             <el-button-group>
-                <el-button type="primary" icon="fa-download" @click="handleExport()">导出</el-button>
-                <el-button type="primary" icon="fa-upload" @click="handleImport()">导入</el-button>
+                <el-button type="primary" icon="fa-download">导出</el-button>
+                <el-button type="primary" icon="fa-upload">导入</el-button>
             </el-button-group>
         </el-col>
         <el-col :span="24">
@@ -13,7 +13,7 @@
                     <el-input v-model="search.name"></el-input>
                 </el-form-item>
                 <el-form-item label="地址" prop="addr">
-                    <city v-model="search.addr" change-on-select filterable placeholder="试试搜索"></city>
+                    <select-city v-model="search.addr" change-on-select filterable placeholder="试试搜索"></select-city>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="initData">查询</el-button>
@@ -44,11 +44,11 @@
             <el-pagination @size-change="pageSize=$event;initData()" @current-change="initData" layout="sizes,prev, pager, next" :current-page.sync="page" :page-size="pageSize" :total="total" class="fr"></el-pagination>
         </el-col>
 
-        <el-dialog title="添加" v-model="addVisible">
-            <edit @success="handleEditSuccess"></edit>
+        <el-dialog title="新增用户" v-model="addVisible">
+            <edit @success="handleSaveSuccess" v-if="addVisible"></edit>
         </el-dialog>
-        <el-dialog title="修改" v-model="editVisible">
-            <edit @success="handleEditSuccess" :model="editModel" v-if="editVisible"></edit>
+        <el-dialog title="修改用户" v-model="editVisible">
+            <edit @success="handleSaveSuccess" :model="editModel" v-if="editVisible"></edit>
         </el-dialog>
     </el-row>
 </template>
@@ -56,14 +56,14 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { getListPage, batchRemove } from 'src/service/user'
-import city from 'src/components/common/city'
+import selectCity from 'src/components/select/city'
 import edit from './edit'
 
 export default {
-    components: { edit, city },
+    components: { edit, selectCity },
     data() {
         return {
-            loading: true, //列表load
+            loading: false, //列表load
             page: 1,
             pageSize: 10,
             pageSizes: [10, 20, 30, 50, 100],
@@ -101,21 +101,19 @@ export default {
             this.$refs.search.resetFields();
             this.initData();
         },
-        handleEdit(row) {
-            if (row) { //修改
-                let { id, name, sex, birth, addr } = row;
-                this.editModel = { id, name, sex, birth, county: addr.split(' ') };
-                this.editVisible = true;
-            } else {//新增
-                this.addVisible = true;
-            }
+        handleAdd() {
+            this.addVisible = true;
         },
-        handleEditSuccess() {
+        handleEdit(row) {
+            let { id, name, sex, birth, addr } = row;
+            this.editModel = { id, name, sex, birth, county: addr.split(' ') };
+            this.editVisible = true;
+        },
+        handleSaveSuccess() {
             this.addVisible = false;
             this.editVisible = false;
             this.initData();
         },
-        //删除
         async handleDel(row) {
             await this.$confirm('确认删除吗？', '提示');
             await batchRemove({ ids: [row.id] });
@@ -132,19 +130,6 @@ export default {
                 this.initData();
             } else {
                 this.$message.warning('请选择需要删除的数据');
-            }
-        },
-        //导入
-        handleImport() {
-            this.$message.warning('尚未开发');
-        },
-        //导出
-        handleExport() {
-            const ids = this.sels.map(v => v.id);
-            if (ids.length > 0) {
-                this.$message.warning('尚未开发');
-            } else {
-                this.$message.warning('请选择需要导出的数据');
             }
         }
     }

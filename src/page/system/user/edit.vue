@@ -5,15 +5,15 @@
         </el-form-item>
         <el-form-item label="性别" prop="sex">
             <el-radio-group v-model="model.sex">
-                <el-radio-button label="male">男</el-radio-button>
-                <el-radio-button label="female">女</el-radio-button>
+                <el-radio label="male">男</el-radio>
+                <el-radio label="female">女</el-radio>
             </el-radio-group>
         </el-form-item>
         <el-form-item label="生日" prop="birth">
             <el-date-picker v-model="model.birth" type="date" placeholder="选择日期" @change="model.birth = $event"></el-date-picker>
         </el-form-item>
         <el-form-item label="地址" prop="county">
-            <city v-model="model.county" filterable></city>
+            <select-city v-model="model.county" filterable></select-city>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="onSubmit" :loading="loading">保存</el-button>
@@ -24,10 +24,10 @@
 
 <script>
 import { save } from 'src/service/user'
-import city from 'src/components/common/city'
+import selectCity from 'src/components/select/city'
 
 export default {
-    components: { city },
+    components: { selectCity },
     props: {
         model: {
             type: Object,

@@ -1,5 +1,5 @@
 <template>
-    <el-cascader :options="options" v-model="currentValue" @change="handelChange" :change-on-select="changeOnSelect" :filterable="filterable" :placeholder="placeholder">
+    <el-cascader :options="options" clearable v-model="currentValue" @change="handelChange" :change-on-select="changeOnSelect" :filterable="filterable" :placeholder="placeholder">
     </el-cascader>
 </template>
 

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapMutations } from 'vuex'
 import { login } from 'src/service/user'
 import { getList } from 'src/service/menu'
 
@@ -30,9 +30,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions([
-            'getCurMenu'
-        ]),
         ...mapMutations([
             'RECORD_USERINFO'
         ]),
@@ -40,7 +37,7 @@ export default {
             try {
                 let { code, msg, token, user } = await login(this.form);
                 if (code == 200) {
-                    let menus = await getList();
+                    let menus = await getList()
                     this.RECORD_USERINFO({ token, user, menus });
                     this.$router.push(this.$route.query.redirect || '/')
                 } else {

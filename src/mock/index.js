@@ -1,3 +1,2 @@
-import mock from './mock';
-
-export default mock;
+import './user';
+import './menu';

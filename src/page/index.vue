@@ -46,7 +46,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import myMenu from 'src/components/menu/menu'
+import myMenu from 'src/components/common/menu'
 
 export default {
     components: { myMenu },
@@ -140,12 +140,12 @@ $color-primary:#20a0ff;
             .txt {
                 color: #fff;
             }
-        }
-        .logo-width {
-            width: 230px;
-        }
-        .logo-collapse-width {
-            width: 60px
+            &.logo-width {
+                width: 230px;
+            }
+            &.logo-collapse-width {
+                width: 60px
+            }
         }
         .tools {
             padding: 0px 23px;

@@ -13,8 +13,7 @@ import {
 } from './config/mUtils'
 import ElementUI from 'components/element-ui'
 
-import Mock from './mock'
-Mock.bootstrap();
+import './mock'
 
 Vue.use(VueRouter)
 Vue.use(ElementUI)

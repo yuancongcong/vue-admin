@@ -4,6 +4,7 @@ import {
   USER_LOGOUT,
   GET_ORG_LIST,
   GET_CUR_MENU,
+  GET_MENU_LIST
 } from './mutation-types.js'
 
 import {
@@ -29,7 +30,6 @@ export default {
   [INIT_USERINFO](state) {
     state.user = getStore('user', 'json');
     state.menus = getStore('menus', 'json');
-    state.menuMap = toMap({},state.menus);
   },
   [USER_LOGOUT](state, info) {
     setToken('');
@@ -38,6 +38,10 @@ export default {
   },
   [GET_ORG_LIST](state, data) {
     state.orgList = data
+  },
+  [GET_MENU_LIST](state, menus) {
+    state.menus = menus
+    setStore('menus', menus)
   },
   [GET_CUR_MENU](state, path) {
     let menu = state.curMenu = state.menuMap[path];
@@ -48,16 +52,4 @@ export default {
     }
     state.breadcrumb = breadcrumb.reverse();
   }
-}
-
-
-function toMap(menuMap, menus, parent) {
-  menus.forEach(v => {
-    menuMap[v.url] = v;
-    v.parent = parent
-    if (v.children) {
-      toMap(menuMap, v.children, v);
-    }
-  })
-  return menuMap;
 }

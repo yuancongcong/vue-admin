@@ -8,7 +8,7 @@ export default [{
     component: r => require(['../page/system/user'], r),
   },
   {
-    path: 'org',
-    component: r => require(['../page/system/user'], r),
+    path: 'menu',
+    component: r => require(['../page/system/menu'], r),
   }
 ]
