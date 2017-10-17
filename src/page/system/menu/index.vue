@@ -6,7 +6,13 @@
         <el-col :span="24">
             <el-table :data="tableData" @selection-change="selsChange" v-loading="loading" stripe border ref="table">
                 <el-table-column type="index" width="60"></el-table-column>
-                <el-table-column prop="name" label="名称" width="200" :formatter="formatterName"></el-table-column>
+                <el-table-column prop="name" label="名称" width="200" :formatter="formatterName">
+                    <template scope="scope">
+                        <template v-for="id in scope.row.pids">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</template>
+                        <i :class="'el-icon-'+scope.row.icon"></i>&nbsp;
+                        {{scope.row.name}}
+                    </template>
+                </el-table-column>
                 <el-table-column prop="url" label="链接"></el-table-column>
                 <el-table-column prop="order" label="排序" width="80"></el-table-column>
                 <el-table-column prop="disable" label="禁用" width="80">
@@ -63,14 +69,6 @@ export default {
         selsChange: function(sels) {
             this.sels = sels;
         },
-        formatterName(row, column, cellValue) {
-            let prefix = '';
-            row.pids.some(v => {
-                prefix += '\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n';
-            })
-            return prefix + cellValue;
-        },
-        //表格数据
         initData() {
             this.getMenuList();
         },
