@@ -5,8 +5,8 @@
             <span slot="title">{{menu.name}}</span>
         </template>
         <template v-for="menu2 in menu.children">
-            <submenu :menu="menu2" v-if="menu2.children && menu2.children.length>0"></submenu>
-            <el-menu-item :index="menu2.url" :route="{path:menu2.url}" v-else>
+            <submenu :menu="menu2" v-if="menu2.children && menu2.children.length>0" :key="menu2.id"></submenu>
+            <el-menu-item :index="menu2.url" :route="{path:menu2.url}" v-else :key="menu2.id">
                 <template slot="title">
                     <i :class="'el-icon-'+menu2.icon"></i>
                     {{menu2.name}}</template>
