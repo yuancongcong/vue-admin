@@ -6,7 +6,6 @@ module.exports = {
   build: {
     env: {
       NODE_ENV: '"production"',
-      ENV_NAME: args.env ? `"${args.env}"` :'"production"'
     },
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
@@ -23,7 +22,6 @@ module.exports = {
   dev: {
     env: {
       NODE_ENV: '"development"',
-      ENV_NAME: args.env ? `"${args.env}"` :'"development"'
     },
     port: 8000,
     assetsSubDirectory: 'static',
