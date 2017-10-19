@@ -1,4 +1,4 @@
-//vue项目优化之按需加载组件-使用webpack require.ensure
+//webpack按需加载组件
 const login = r => require(['../page/login'], r)
 const index = r => require(['../page'],r) 
 const _404 = r => require(['../page/common/404'], r)

@@ -26,7 +26,7 @@ export default {
       state.loading = false;
     }
   },
-  async getCurMenu({state,commit},path) {
+  getCurMenu({state,commit},path) {
     const menuMap  = state.menuMap;
     const cur = menuMap[path];
     commit(GET_CUR_MENU, cur)
