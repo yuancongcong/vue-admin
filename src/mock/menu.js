@@ -23,13 +23,7 @@ const getParams = config => {
 
 
 //获取菜单列表
-mock.onPost('/menu/list').reply(config => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, [..._Menus]]);
-    }, 300);
-  });
-});
+mock.onPost('/menu/list').reply(200, [..._Menus]);
 
 //保存菜单
 mock.onPost('/menu/save').reply(config => {
@@ -42,7 +36,7 @@ mock.onPost('/menu/save').reply(config => {
     disable,
     remark,
     order
-  } = getParams(config);
+  } = JSON.parse(config.data);
   pids = (pids + '').split(',');
 
   if (id) {
@@ -74,12 +68,10 @@ mock.onPost('/menu/save').reply(config => {
     mapMenu[menu.id] = menu;
   }
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        code: 200,
-        msg: id ? '修改成功' : '新增成功'
-      }]);
-    }, 500);
+    resolve([200, {
+      code: 200,
+      msg: id ? '修改成功' : '新增成功'
+    }]);
   });
 });
 
@@ -87,7 +79,7 @@ mock.onPost('/menu/save').reply(config => {
 mock.onPost('/menu/batchremove').reply(config => {
   let {
     ids
-  } = getParams(config);
+  } = JSON.parse(config.data);
   ids = (ids + '').split(',');
   ids.some(id => {
     let u = mapMenu[id];
@@ -108,11 +100,9 @@ mock.onPost('/menu/batchremove').reply(config => {
   })
 
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        code: 200,
-        msg: '删除成功'
-      }]);
-    }, 500);
+    resolve([200, {
+      code: 200,
+      msg: '删除成功'
+    }]);
   });
 });

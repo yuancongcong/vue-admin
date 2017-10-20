@@ -27,31 +27,29 @@ mock.onPost('/login').reply(config => {
   let {
     username,
     password
-  } = getParams(config);
+  } = JSON.parse(config.data);
   return new Promise((resolve, reject) => {
     let user = null;
-    setTimeout(() => {
-      LoginUsers.some(u => {
-        if (u.username === username && u.password == password) {
-          user = JSON.parse(JSON.stringify(u));
-          user.password = undefined;
-        }
-      });
-
-      if (user) {
-        resolve([200, {
-          code: 200,
-          msg: '请求成功',
-          token: '123456',
-          user
-        }]);
-      } else {
-        resolve([200, {
-          code: 500,
-          msg: '账号或密码错误'
-        }]);
+    LoginUsers.some(u => {
+      if (u.username === username && u.password == password) {
+        user = JSON.parse(JSON.stringify(u));
+        user.password = undefined;
       }
-    }, 100);
+    });
+
+    if (user) {
+      resolve([200, {
+        code: 200,
+        msg: '请求成功',
+        token: '123456',
+        user
+      }]);
+    } else {
+      resolve([200, {
+        code: 500,
+        msg: '账号或密码错误'
+      }]);
+    }
   });
 });
 
@@ -61,7 +59,7 @@ mock.onPost('/user/changepassword').reply(config => {
     oldPass,
     newPass,
     reNewPass
-  } = getParams(config);
+  } = JSON.parse(config.data);
   return new Promise((resolve, reject) => {
     if (newPass !== reNewPass) {
       return resolve([200, {
@@ -95,17 +93,15 @@ mock.onPost('/user/changepassword').reply(config => {
 mock.onPost('/user/list').reply(config => {
   let {
     name
-  } = getParams(config);
+  } = JSON.parse(config.data);
   let mockUsers = _Users.filter(user => {
     if (name && user.name.indexOf(name) == -1) return false;
     return true;
   });
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        mockUsers
-      }]);
-    }, 1000);
+    resolve([200, {
+      mockUsers
+    }]);
   });
 });
 
@@ -116,19 +112,17 @@ mock.onPost('/user/listpage').reply(config => {
     pageSize,
     name,
     addr
-  } = getParams(config);
+  } = JSON.parse(config.data);
   let mockUsers = _Users
     .filter(user => !(name && user.name.indexOf(name) == -1))
     .filter(user => !(addr && user.addr.indexOf(addr) == -1));
   let total = mockUsers.length;
   mockUsers = mockUsers.filter((u, index) => index < pageSize * page && index >= pageSize * (page - 1));
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        total: total,
-        resultList: mockUsers
-      }]);
-    }, 300);
+    resolve([200, {
+      total: total,
+      resultList: mockUsers
+    }]);
   });
 });
 
@@ -136,16 +130,14 @@ mock.onPost('/user/listpage').reply(config => {
 mock.onPost('/user/batchremove').reply(config => {
   let {
     ids
-  } = getParams(config);
+  } = JSON.parse(config.data);
   ids = (ids + '').split(',');
   _Users = _Users.filter(u => !ids.includes(u.id));
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        code: 200,
-        msg: '删除成功'
-      }]);
-    }, 500);
+    resolve([200, {
+      code: 200,
+      msg: '删除成功'
+    }]);
   });
 });
 
@@ -158,7 +150,7 @@ mock.onPost('/user/save').reply(config => {
     age,
     birth,
     sex
-  } = getParams(config);
+  } = JSON.parse(config.data);
 
   if (id) {
     _Users.some(u => {
@@ -181,11 +173,9 @@ mock.onPost('/user/save').reply(config => {
     });
   }
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve([200, {
-        code: 200,
-        msg: id ? '修改成功' : '新增成功'
-      }]);
-    }, 500);
+    resolve([200, {
+      code: 200,
+      msg: id ? '修改成功' : '新增成功'
+    }]);
   });
 });
