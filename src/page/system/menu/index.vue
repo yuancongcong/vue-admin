@@ -6,7 +6,7 @@
         <el-col :span="24">
             <el-table :data="tableData" @selection-change="selsChange" v-loading="loading" stripe border ref="table">
                 <el-table-column type="index" width="60"></el-table-column>
-                <el-table-column prop="name" label="名称" width="200" :formatter="formatterName">
+                <el-table-column prop="name" label="名称" width="200">
                     <template scope="scope">
                         <template v-for="id in scope.row.pids">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</template>
                         <i :class="'el-icon-'+scope.row.icon"></i>&nbsp;
