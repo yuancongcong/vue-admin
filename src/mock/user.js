@@ -9,19 +9,6 @@ import {
 
 let _Users = Users;
 
-const getParams = config => {
-  let data = config.data,
-    params = {}
-  data.split('&').map(res => {
-    let ar = res.split('=')
-    let key = decodeURIComponent(ar[0]),
-      val = decodeURIComponent(ar[1])
-    params[key] = isNaN(val) ? val : parseInt(val)
-  })
-  return params
-}
-
-
 //登录
 mock.onPost('/login').reply(config => {
   let {

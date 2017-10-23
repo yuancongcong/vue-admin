@@ -9,19 +9,6 @@ import {
 
 let _Menus = Menus;
 
-const getParams = config => {
-  let data = config.data,
-    params = {}
-  data.split('&').map(res => {
-    let ar = res.split('=')
-    let key = decodeURIComponent(ar[0]),
-      val = decodeURIComponent(ar[1])
-    params[key] = isNaN(val) ? val : parseInt(val)
-  })
-  return params
-}
-
-
 //获取菜单列表
 mock.onPost('/menu/list').reply(200, [..._Menus]);
 
