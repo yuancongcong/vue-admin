@@ -13,7 +13,7 @@
                         {{scope.row.name}}
                     </template>
                 </el-table-column>
-                <el-table-column prop="url" label="链接2222"></el-table-column>
+                <el-table-column prop="url" label="链接"></el-table-column>
                 <el-table-column prop="order" label="排序" width="80"></el-table-column>
                 <el-table-column prop="disable" label="禁用" width="80">
                     <template scope="scope">
