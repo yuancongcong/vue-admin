@@ -1,6 +1,6 @@
 <template>
     <ul class="icon-list">
-        <li v-for="icon in icons" :key="icon" :class="{'active':icon===currentValue}" @click="handelClick(icon)">
+        <li v-for="icon in icons" :key="icon" :class="{'active':icon===value}" @click="handelClick(icon)">
             <span>
                 <i :class="'el-icon-'+icon"></i>
             </span>
@@ -15,8 +15,6 @@ export default {
     },
     data() {
         return {
-            // currentValue: this.value,
-            currentValue: this.value,
             icons: [
                 //el-icon
                 'document', 'menu', 'message', 'more', 'setting', 'upload2', 'search', 'date',
@@ -26,19 +24,10 @@ export default {
             ]
         }
     },
-    watch: {
-        value(v) {
-            this.setCurrentValue(v)
-        }
-    },
     methods: {
         handelClick(value) {
-            this.setCurrentValue(value);
+            this.$emit('input', value);
             this.$emit('change', value);
-        },
-        setCurrentValue(v) {
-            this.currentValue = v;
-            this.$emit('input', this.currentValue);
         }
     }
 }

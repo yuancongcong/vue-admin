@@ -10,7 +10,7 @@
             <el-input v-model="model.url"></el-input>
         </el-form-item>
         <el-form-item label="图标" prop="icon">
-            <select-icon v-model="model.icon" filterable></select-icon>
+            <select-icon v-model="model.icon"></select-icon>
         </el-form-item>
         <el-form-item label="是否禁用" prop="disable">
             <el-radio-group v-model="model.disable">
